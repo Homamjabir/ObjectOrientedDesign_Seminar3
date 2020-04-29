@@ -16,7 +16,7 @@ public class SaleTest
     private Sale sale;
 
     @Before
-    // Identifier "1000" is Marabou Choklad 200g with the price of 24.95
+    // Identifier "1" is Chocolate bar with the price of 25
     public void setUp() throws Exception
     {
         inv = new Inventory();
@@ -33,7 +33,7 @@ public class SaleTest
     @Test
     public void getRunningTotalCheck()
     {
-        float expectedRT = 24.99f;
+        double expectedRT = 25;
         Assert.assertEquals(expectedRT, sale.getRunningTotal(), 0f);
     }
 
@@ -43,7 +43,7 @@ public class SaleTest
     {
         ArrayList<ItemDTO> items = sale.getItems();
         ItemDTO itemDTO = items.get(0);
-        long expectedIdentifier = 1000L;
+        int expectedIdentifier = 1  ;
         Assert.assertEquals(expectedIdentifier, itemDTO.getIdentifier());
     }
 

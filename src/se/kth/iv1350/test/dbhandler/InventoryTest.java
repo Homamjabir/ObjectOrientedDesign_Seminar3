@@ -27,7 +27,7 @@ public class InventoryTest
     @Test
     public void checkIdentifierWhenTrue()
     {
-        // Identifier "1000" exist, expected result is true
+        // Identifier "1" exist, expected result is true
         try
         {
             boolean actualResult = inv.checkIdentifier(1);

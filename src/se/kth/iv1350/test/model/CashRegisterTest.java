@@ -77,7 +77,7 @@ public class CashRegisterTest
         }
         catch (Exception ex)
         {
-            fail("Item with identifier 1000 not found.");
+            fail("Item with identifier 1 not found.");
         }
         Assert.assertNotEquals(itemDTO, itemDTO2);
     }

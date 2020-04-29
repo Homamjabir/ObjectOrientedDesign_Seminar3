@@ -29,29 +29,29 @@ public class ItemDTOTest
     @Test
     public void getNAME()
     {
-        String expectedName = "Marabou Choklad 200g";
+        String expectedName = "Chocolate bar";
         Assert.assertEquals(expectedName, itemDTO.getName());
     }
 
     @Test
     public void getPRICE()
     {
-        float expectedPrice = 24.99f;
-        Assert.assertEquals(expectedPrice, itemDTO.getPrice(), 0f);
+        double expectedPrice = 25;
+        Assert.assertEquals(expectedPrice, itemDTO.getPrice(), 0);
     }
 
     @Test
     public void getIDENTIFIER()
     {
-        long expectedIfentifier = 1000L;
+        int expectedIfentifier = 1;
         Assert.assertEquals(expectedIfentifier, itemDTO.getIdentifier());
     }
 
     @Test
     public void getVAT()
     {
-        float expectedVAT = 0.12f;
-        Assert.assertEquals(expectedVAT, itemDTO.getVAT(), 0f);
+        double expectedVAT = 0.06;
+        Assert.assertEquals(expectedVAT, itemDTO.getVAT(), 0);
     }
 
     @Test

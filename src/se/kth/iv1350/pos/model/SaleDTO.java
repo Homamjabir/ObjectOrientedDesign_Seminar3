@@ -24,7 +24,7 @@ public class SaleDTO
         return totalPrice;
     }
 
-    ArrayList<ItemDTO> getItems()
+    public ArrayList<ItemDTO> getItems()
     {
         return itemsBought;
     }
