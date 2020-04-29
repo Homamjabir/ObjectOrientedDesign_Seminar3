@@ -27,7 +27,7 @@ public class ExternalAccountingSystem
     /**
      * Retrieve all stored sales logs
      */
-    ArrayList<SaleDTO> getLogs()
+    public ArrayList<SaleDTO> getLogs()
     {
         ArrayList<SaleDTO> saleLogsToReturn = new ArrayList<>();
         for (SaleDTO saleDTO : saleLogs)

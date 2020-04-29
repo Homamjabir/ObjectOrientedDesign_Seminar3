@@ -28,6 +28,7 @@ class Main
             ItemDTO newItem;
 
             newItem = contr.scanItem(itemIdentifier);
+            if(newItem == null) { continue; }
 
             currentSale.uppdateSale(newItem);
             System.out.println("\n=======================================================");

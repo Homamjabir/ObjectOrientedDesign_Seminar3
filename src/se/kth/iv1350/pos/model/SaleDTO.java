@@ -11,7 +11,7 @@ public class SaleDTO
     private double totalPrice;
     private double change;
 
-    SaleDTO(Sale sale)
+    public SaleDTO(Sale sale)
     {
         this.itemsBought = sale.getItems();
         this.VAT = sale.getVat();
@@ -19,7 +19,7 @@ public class SaleDTO
         this.change = sale.getChange();
     }
 
-    double getTotalPrice()
+    public double getTotalPrice()
     {
         return totalPrice;
     }
@@ -29,12 +29,12 @@ public class SaleDTO
         return itemsBought;
     }
 
-    double getVAT()
+    public double getVAT()
     {
         return VAT;
     }
 
-    double getChange()
+    public double getChange()
     {
         return change;
     }
