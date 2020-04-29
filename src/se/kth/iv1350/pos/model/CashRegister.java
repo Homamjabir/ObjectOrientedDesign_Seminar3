@@ -34,8 +34,8 @@ public class CashRegister
 
     /**
      * Searches for Item in Inventory by checking the identifiers and updated the sale price
-     * @param itemIdentifier
-     * @return
+     * @param itemIdentifier Identifier which is unique to each type of item
+     * @return ItemDTO of Item with matching identifiers
      */
 
     public ItemDTO scanIdentifier(int itemIdentifier)
@@ -52,26 +52,25 @@ public class CashRegister
     }
 
     /**
-     *
-     * @return
+     * @return New Sale object
      */
     public Sale createNewSale() {
         return new Sale();
     }
 
     /**
-     *
-     * @param saleDTO
-     * @return
+     * Creates a Receipt object from the saleDTO argument
+     * @param saleDTO Sale information
+     * @return Receipt object
      */
     public Receipt createReceipt(SaleDTO saleDTO) {
         return printer.printReceipt(saleDTO);
     }
 
     /**
-     *
-     * @param currentSale
-     * @return
+     * Ends the given Sale
+     * @param currentSale The Sale that will be ended
+     * @return SaleDTO from the Sale argument
      */
     public SaleDTO endCurrentSale(Sale currentSale) {
         while(amountNeeded > amountPresent) {
@@ -95,26 +94,15 @@ public class CashRegister
 
     }
 
-    /**
-     *
-     * @param amount
-     */
     private void updateAmountPresent(double amount) {
         amountPresent += amount;
     }
 
-    /**
-     *
-     * @param amount
-     */
+
     private void updateAmountNeeded(double amount) {
         amountNeeded += amount;
     }
 
-    /**
-     *
-     * @return
-     */
     private double calculateChange() {
         return amountPresent - amountNeeded;
     }

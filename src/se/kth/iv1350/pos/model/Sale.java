@@ -21,12 +21,17 @@ public class Sale
         this.items = new ArrayList<ItemDTO>();
     }
 
+    /**
+     * @return runningTotal amoun
+     */
     public double getRunningTotal()
     {
         return runningTotal;
     }
 
-
+    /**
+     * @return ArrayList of items
+     */
     public ArrayList<ItemDTO> getItems()
     {
         ArrayList<ItemDTO> itemsToReturn = new ArrayList<>();
@@ -37,17 +42,10 @@ public class Sale
         return itemsToReturn;
     }
 
-    double getVatRate()
-    {
-        double totalVat = 0;
-        for (ItemDTO item : items)
-        {
-            totalVat = totalVat + ((item.getQuantity() * item.getPrice()) * item.getVAT());
-        }
-        vat = totalVat;
-        return vat;
-    }
-
+    /**
+     * Uppdates sale with the given item, handles duplicates of items.
+     * @param item ItemDTO to be added
+     */
     public void uppdateSale(ItemDTO item) {
         if(item.getIdentifier() == 0)
             return;

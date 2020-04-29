@@ -7,6 +7,9 @@ public class Inventory
 
     private ArrayList<ItemDTO> items;
 
+    /**
+     * Constructor to create an instance of Inventory
+     */
     public Inventory()
     {
         items = new ArrayList<>();
@@ -20,6 +23,11 @@ public class Inventory
 
     }
 
+    /**
+     * Checks if itemIdentifier in argument matches any identifier in the inventory
+     * @param itemIdentifier Identifier of item to check
+     * @return True if identifier is found in inventory, false otherwise
+     */
     public boolean checkIdentifier(int itemIdentifier)
     {
         for(ItemDTO item : items)
@@ -29,6 +37,11 @@ public class Inventory
         return false;
     }
 
+    /**
+     * Looks for an item with the same identifier.
+     * @param itemIdentifier Identifier to retrieve item of
+     * @return return ItemDTO of given identifier
+     */
     public ItemDTO retrieveItemInformation(int itemIdentifier)
     {
         for(ItemDTO item : items)
