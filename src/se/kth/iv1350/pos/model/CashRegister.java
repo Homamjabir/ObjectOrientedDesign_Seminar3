@@ -1,10 +1,10 @@
 package se.kth.iv1350.pos.model;
 
-import se.kth.iv1350.pos.dbhandler.ExternalAccountingSystem;
-import se.kth.iv1350.pos.dbhandler.Inventory;
-import se.kth.iv1350.pos.dbhandler.ItemDTO;
-import se.kth.iv1350.pos.dbhandler.Printer;
-import se.kth.iv1350.pos.model.Sale;
+import se.kth.iv1350.pos.dbhandler.*;
+
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import java.util.Scanner;
 
@@ -18,6 +18,8 @@ public class CashRegister
     private double amountPresent;
     private double amountNeeded;
     private Scanner scanner;
+    final static Logger logger = Logger.getAnonymousLogger();
+    ArrayList<SaleObserver> saleObservers = new ArrayList<SaleObserver>();
 
     /**
      * Constructor for the class CashRegister. Creates an instance with necessary initializations
@@ -38,15 +40,29 @@ public class CashRegister
      * @return ItemDTO of Item with matching identifiers
      */
 
-    public ItemDTO scanIdentifier(int itemIdentifier)
+    public ItemDTO scanIdentifier(int itemIdentifier) throws Exception
     {
         boolean isIdentifierReal = inventory.checkIdentifier(itemIdentifier);
-
-        if(isIdentifierReal)
+        try
         {
-            ItemDTO foundItem = inventory.retrieveItemInformation(itemIdentifier);
-            updateAmountNeeded(foundItem.getPrice());
-            return foundItem;
+            if (isIdentifierReal)
+            {
+                ItemDTO foundItem = inventory.retrieveItemInformation(itemIdentifier);
+                updateAmountNeeded(foundItem.getPrice());
+                return foundItem;
+            }
+        }
+        catch (DatabaseFailureException ex)
+        {
+            System.out.println("DEVELOPER LOG:");
+            logger.log(Level.SEVERE, "an exception was thrown", ex);
+            throw new DatabaseFailureException();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("DEVELOPER LOG:");
+            logger.log(Level.SEVERE, "an exception was thrown", ex);
+            throw new InvalidIdentifierException();
         }
         return null;
     }
@@ -90,6 +106,7 @@ public class CashRegister
 
         eAS.addLog(finalSaleDTO);
 
+        notifySaleObserver();
         return finalSaleDTO;
 
     }
@@ -105,5 +122,14 @@ public class CashRegister
 
     private double calculateChange() {
         return amountPresent - amountNeeded;
+    }
+
+    public void addSaleObserver(SaleObserver saleObserver) {
+        saleObservers.add(saleObserver);
+    }
+
+    public void notifySaleObserver() {
+        for (SaleObserver saleObserver : saleObservers)
+            saleObserver.newEndedSale(totalInCashRegister);
     }
 }

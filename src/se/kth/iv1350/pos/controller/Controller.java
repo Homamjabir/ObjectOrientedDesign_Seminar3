@@ -28,9 +28,16 @@ public class Controller
      * @param itemIdentifier Identifier of an item
      * @return ItemDTO of the found item
      */
-    public ItemDTO scanItem(int itemIdentifier) {
-
-        return cashRegister.scanIdentifier(itemIdentifier);
+    public ItemDTO scanItem(int itemIdentifier) throws Exception {
+        try {
+            return cashRegister.scanIdentifier(itemIdentifier);
+        }
+        catch (DatabaseFailureException ex) {
+            throw new DatabaseFailureException();
+        }
+        catch (Exception ex) {
+            throw new InvalidIdentifierException();
+        }
     }
 
     /**
@@ -49,6 +56,10 @@ public class Controller
      */
     public SaleDTO endCurrentSale(Sale currentSale) {
         return cashRegister.endCurrentSale(currentSale);
+    }
+
+    public void createObserver(SaleObserver saleObserver) {
+        cashRegister.addSaleObserver(saleObserver);
     }
 
 }

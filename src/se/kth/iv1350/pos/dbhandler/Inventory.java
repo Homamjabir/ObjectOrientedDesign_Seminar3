@@ -1,5 +1,8 @@
 package se.kth.iv1350.pos.dbhandler;
 
+import se.kth.iv1350.pos.model.DatabaseFailureException;
+import se.kth.iv1350.pos.model.InvalidIdentifierException;
+
 import java.util.ArrayList;
 
 public class Inventory
@@ -28,13 +31,16 @@ public class Inventory
      * @param itemIdentifier Identifier of item to check
      * @return True if identifier is found in inventory, false otherwise
      */
-    public boolean checkIdentifier(int itemIdentifier)
+    public boolean checkIdentifier(int itemIdentifier) throws Exception
     {
+        if(itemIdentifier == 0)
+            throw new DatabaseFailureException("Database failure");
+
         for(ItemDTO item : items)
         {
             if(item.getIdentifier() == itemIdentifier) { return true; }
         }
-        return false;
+        throw new InvalidIdentifierException("Invalid identifier");
     }
 
     /**
@@ -42,18 +48,16 @@ public class Inventory
      * @param itemIdentifier Identifier to retrieve item of
      * @return return ItemDTO of given identifier
      */
-    public ItemDTO retrieveItemInformation(int itemIdentifier)
+    public ItemDTO retrieveItemInformation(int itemIdentifier) throws InvalidIdentifierException
     {
         for(ItemDTO item : items)
-        {
             if(item.getIdentifier() == itemIdentifier)
             {
                 ItemDTO newItem = new ItemDTO(item);
                 newItem.quantity = 1;
                 return newItem;
             }
-        }
-        return null;
+        throw new InvalidIdentifierException("Invalid identifier, no item found");
     }
 }
 
